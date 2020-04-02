@@ -4,7 +4,7 @@
 .DESCRIPTION
     Installes AL Language extension to Visual Studio Code of version that matches the container.
 .EXAMPLE
-    PS C:\> .\Install-Certificate.ps1 -containerName BC
+    PS C:\> .\Install-ALLanguage.ps1 -containerName BC
     Installs correct version of AL Language 
 #>
 
