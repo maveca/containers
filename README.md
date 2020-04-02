@@ -8,3 +8,7 @@ How to start:
 2. In the same directory use those scripts:
 
 > .\New-BCSandboxContainer.ps1 -licenseFile .\license.flf
+
+## Remarks
+
+Until some functions that needs to be isolated from elevated authentication those scripts must be run as administrator.
