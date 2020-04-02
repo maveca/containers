@@ -35,7 +35,7 @@ if (!($principal.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator
 } #>
 
 # Create credentials
-if ($credential -eq $null)
+if ($null -eq $credential)
 {
     $credential = New-Object pscredential 'admin', (ConvertTo-SecureString -String 'admin' -AsPlainText -Force)
 }
