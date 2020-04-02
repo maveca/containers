@@ -17,8 +17,8 @@
 #>
 
 Param (
-        [Parameter(Mandatory=$false)] [String]$containerName = "fin", 
-        [Parameter(Mandatory=$false)] [String]$imageName = "microsoft/dynamics-nav:2016-cu4", 
+        [Parameter(Mandatory=$false)] [String]$containerName = "nav", 
+        [Parameter(Mandatory=$false)] [String]$imageName = "microsoft/dynamics-nav:latest", 
         [Parameter(Mandatory=$true)]  [String]$licenseFile
 )
 
