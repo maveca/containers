@@ -25,7 +25,7 @@ Param (
         [Parameter(Mandatory=$false)] [Switch]$installALLanguage
 )
 
-.\Install-BCContainer.ps1 -containerName $containerName `
+.\Install\Install-BCContainer.ps1 -containerName $containerName `
                         -imageName $imageName `
                         -licenseFile $licenseFile `
                         -credential $credential `

@@ -22,7 +22,7 @@ Param (
         [Parameter(Mandatory=$true)]  [String]$licenseFile
 )
 
-.\Install-NAVContainer.ps1 -containerName $containerName `
+.\Install\Install-NAVContainer.ps1 -containerName $containerName `
                         -imageName $imageName `
                         -licenseFile $licenseFile `
                         -installNAVContainerHelper

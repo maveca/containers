@@ -4,7 +4,7 @@
 .DESCRIPTION
     Installes certificate to the host for connecting to protected docker service.
 .EXAMPLE
-    PS C:\> .\Install-Certificate.ps1 -containerName BC
+    PS C:\> .\Install\Install-Certificate.ps1 -containerName BC
     Installes certificate to the host.
 .NOTES
     Installes certificate to the host.

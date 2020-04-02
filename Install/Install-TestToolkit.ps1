@@ -4,7 +4,7 @@
 .DESCRIPTION
     Installes Test Toolkit to the container.
 .EXAMPLE
-    PS C:\> .\Install-TestToolkit.ps1 -containerName BC
+    PS C:\> .\Install\Install-TestToolkit.ps1 -containerName BC
     Installes Test Toolkit to the container.
 .NOTES
     Installes Test Toolkit to the container.

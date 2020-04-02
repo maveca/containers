@@ -4,7 +4,7 @@
 .DESCRIPTION
     Installes Docker Container with Business Central application.
 .EXAMPLE
-    PS C:\> .\Install-BCContainer.ps1 -containerName bc -imageName "mcr.microsoft.com/businesscentral/sandbox:base" -licenseFile .\license.flf
+    PS C:\> .\Install\Install-BCContainer.ps1 -containerName bc -imageName "mcr.microsoft.com/businesscentral/sandbox:base" -licenseFile .\license.flf
     Creates docker with added licencse file.
 .NOTES
     This script is provided to help execute installation of docker image.
@@ -45,7 +45,7 @@ if ($credential -eq $null)
     $credential = New-Object pscredential 'admin', (ConvertTo-SecureString -String 'admin' -AsPlainText -Force)
 }
 
-if ($installNAVContainerHelper) { .\Install-NavContainerHelper.ps1 }
+if ($installNAVContainerHelper) { .\Install\Install-NavContainerHelper.ps1 }
 
 # Install container
 Import-Module navcontainerhelper
@@ -63,7 +63,7 @@ New-NavContainer -accept_eula `
                     -useBestContainerOS `
                     -doNotCheckHealth
 
-if ($installCertificate) { .\Install-BCCertificate.ps1 -containerName $containerName }
-if ($installALLanguage)  { .\Install-VSCodeALLanguageExtension.ps1 -containerName $containerName }
-if ($installTestToolkit) { .\Install-TestToolkit.ps1 -containerName $containerName }
+if ($installCertificate) { .\Install\Install-BCCertificate.ps1 -containerName $containerName }
+if ($installALLanguage)  { .\Install\Install-VSCodeALLanguageExtension.ps1 -containerName $containerName }
+if ($installTestToolkit) { .\Install\Install-TestToolkit.ps1 -containerName $containerName }
 if ($runWebClient)       { Start-Process "https://$containerName/BC" }

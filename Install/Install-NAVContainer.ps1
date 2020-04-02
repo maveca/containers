@@ -40,7 +40,7 @@ if ($credential -eq $null)
     $credential = New-Object pscredential 'admin', (ConvertTo-SecureString -String 'admin' -AsPlainText -Force)
 }
 
-if ($installNAVContainerHelper) { .\Install-NavContainerHelper.ps1 }
+if ($installNAVContainerHelper) { .\Install\Install-NavContainerHelper.ps1 }
 
 # Install container
 Import-Module navcontainerhelper
