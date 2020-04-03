@@ -1,22 +1,45 @@
-$ResultingObject = @()
+<#
+.SYNOPSIS
+    List of images
+.DESCRIPTION
+    Downloads list of tags for all supported versions.
+.EXAMPLE
+    PS C:\> .\Get-ImageList.ps1 -name businesscentral/onprem -build 14
+    It will list all 14 versions for business central onprem.
 
-$result = Invoke-WebRequest -Uri "https://registry.hub.docker.com/v2/repositories/microsoft/dynamics-nav/tags/?page_size=250" 
-$JsonObject = ConvertFrom-Json -InputObject $result.Content
-$ResultingObject = $JsonObject.results
-$ParentId = 1
-
-while ($JsonObject.next) {
-    $result = Invoke-WebRequest -Uri $JsonObject.next 
-    $JsonObject = ConvertFrom-Json -InputObject $result.Content
-    $ResultingObject += $JsonObject.results    
+    PS C:\> .\Get-ImageList.ps1 -name dynamicsnav -build 2016-cu10
+    It will list 2016 cu10 versions for dynamics nav.
     
-    $percCompleted = [Math]::Round($ResultingObject.Count / $JsonObject.count, 4) * 100
-    Write-Progress -Activity "Processing tags" -PercentComplete $percCompleted -ParentId $ParentId 
+    PS C:\> .\Get-ImageList.ps1 -name businesscentral/sandbox -all
+    It will list all versions for business central sandbox.
+#>
+
+Param (
+        [ValidateSet('businesscentral/sandbox','businesscentral/onprem','dynamicsnav')]
+        [Parameter(Mandatory=$false)] [String]$name = 'businesscentral/sandbox',
+        [Parameter(Mandatory=$false)] [String]$build = "latest", 
+        [Parameter(Mandatory=$false)] [String]$country = "w1",
+        [Parameter(Mandatory=$false)] [String]$platform = "ltsc2019",
+        [Parameter(Mandatory=$false)] [switch]$all
+)
+
+switch($name) {
+    'businesscentral/sandbox'    {$url = "https://mcr.microsoft.com/v2/businesscentral/sandbox/tags/list"} 
+    'businesscentral/onprem'     {$url = "https://mcr.microsoft.com/v2/businesscentral/onprem/tags/list"} 
+    'dynamicsnav'  {$url = "https://mcr.microsoft.com/v2/dynamicsnav/tags/list"} 
 }
 
+Write-Host "Loading from $url (please wait)..."
+$response = Invoke-WebRequest $url
+$JsonObject = ConvertFrom-Json -InputObject $response.Content
 
-$ResultingObject.ForEach({[PSCustomObject]$_.Name}) | Format-Table | Sort-Object -Property Name
-
-
-# $response = Invoke-WebRequest "https://mcr.microsoft.com/v2/businesscentral/sandbox/tags/list"
-# $response = Invoke-WebRequest "https://mcr.microsoft.com/v2/businesscentral/onprem/tags/list"
+## [build][-country][-platform]]
+Write-Host "Selecting images with name: $build*-$country-$platform"
+Write-Host
+if ($all)
+{
+    $JsonObject.tags
+} else {
+    $JsonObject.tags | Where-Object { $_ -Like "$build*-$country-$platform"}  
+}
+Write-Host

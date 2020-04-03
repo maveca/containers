@@ -15,6 +15,8 @@ Param (
         [Parameter(Mandatory=$true)]  [String]$containerName, 
         [Parameter(Mandatory=$true)]  [String]$imageName, 
         [Parameter(Mandatory=$true)]  [String]$licenseFile,
+        [ValidateSet('Windows','NavUserPassword','UserPassword','AAD')]
+        [Parameter(Mandatory=$false)]  [String]$auth='Windows',       
         [Parameter(Mandatory=$false)] [PSCredential]$credential = $null,
         [Parameter(Mandatory=$false)] [Switch]$installNAVContainerHelper = $false,
         [Parameter(Mandatory=$false)] [Switch]$installTestToolkit = $false,
@@ -31,7 +33,7 @@ Write-Host "Image:     $imageName"
 Write-Host
 
 # Create credentials
-if ($credential -eq $null)
+if ($credential -eq $null -and $auth -eq "UserPassword")
 {
     $credential = New-Object pscredential 'admin', (ConvertTo-SecureString -String 'admin' -AsPlainText -Force)
 }
@@ -43,18 +45,19 @@ Import-Module navcontainerhelper -DisableNameChecking
 New-NavContainer -accept_eula `
                     -containerName $containerName `
                     -imageName $imageName `
-                    -auth NavUserPassword `
-                    -useSSL `
+                    -auth $auth `
                     -credential $credential `
+                    -useSSL `
                     -licenseFile $licenseFile `
                     -doNotExportObjectsToText `
                     -accept_outdated `
                     -updateHosts `
                     -includeAL `
                     -useBestContainerOS `
-                    -doNotCheckHealth
+                    -doNotCheckHealth `
+                    -assignPremiumPlan
 
-if ($installCertificate) { .\Install\Install-BCCertificate.ps1 -containerName $containerName }
+if ($installCertificate) { .\install\Install-BCCertificate.ps1 -containerName $containerName }                    
 if ($installALLanguage)  { .\Install\Install-VSCodeALLanguageExtension.ps1 -containerName $containerName }
 if ($installTestToolkit) { .\Install\Install-TestToolkit.ps1 -containerName $containerName }
 if ($runWebClient)       { Start-Process "https://$containerName/BC" }

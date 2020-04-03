@@ -7,7 +7,6 @@
     PS C:\> .\New-BCOnPremContainer.ps1 -licenseFile .\license.flf
     Creates docker with added licencse file.
 .NOTES
-    Tests script if running in elevated mode.
     Updates NavContainerHelper module.
     Loads docker image.
     Installes Contianer.
@@ -18,7 +17,7 @@
 
 Param (
         [Parameter(Mandatory=$false)] [String]$containerName = "onprem", 
-        [Parameter(Mandatory=$false)] [String]$imageName = "mcr.microsoft.com/businesscentral/onprem:base", 
+        [Parameter(Mandatory=$false)] [String]$tagName = "onprem:base", 
         [Parameter(Mandatory=$true)]  [String]$licenseFile,
         [Parameter(Mandatory=$false)] [PSCredential]$credential = $null,
         [Parameter(Mandatory=$false)] [Switch]$installTestToolkit,
@@ -26,7 +25,7 @@ Param (
 )
 
 .\Install\Install-BCContainer.ps1 -containerName $containerName `
-                        -imageName $imageName `
+                        -imageName "mcr.microsoft.com/businesscentral/$tagName" `
                         -licenseFile $licenseFile `
                         -credential $credential `
                         -installNAVContainerHelper `
