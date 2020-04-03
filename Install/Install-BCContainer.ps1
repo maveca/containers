@@ -30,15 +30,6 @@ Write-Host "Container: $containerName"
 Write-Host "Image:     $imageName"
 Write-Host
 
-# Test if script is running in elevated mode
-$identity = [Security.Principal.WindowsIdentity]::GetCurrent()
-$principal = New-Object Security.Principal.WindowsPrincipal $identity
-if (!($principal.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)))
-{
-    Write-Error "Start your PS Shell with Run As Administrator."
-    exit
-}
-
 # Create credentials
 if ($credential -eq $null)
 {
@@ -48,7 +39,7 @@ if ($credential -eq $null)
 if ($installNAVContainerHelper) { .\Install\Install-NavContainerHelper.ps1 }
 
 # Install container
-Import-Module navcontainerhelper
+Import-Module navcontainerhelper -DisableNameChecking
 New-NavContainer -accept_eula `
                     -containerName $containerName `
                     -imageName $imageName `

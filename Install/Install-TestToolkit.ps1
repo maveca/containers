@@ -14,5 +14,5 @@ Param (
         [Parameter(Mandatory=$true)] [String]$containerName 
 )
 
-Import-Module navcontainerhelper
+Import-Module navcontainerhelper -DisableNameChecking
 Import-TestToolkitToNavContainer -containerName $containerName

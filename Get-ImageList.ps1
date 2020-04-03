@@ -16,3 +16,7 @@ while ($JsonObject.next) {
 
 
 $ResultingObject.ForEach({[PSCustomObject]$_.Name}) | Format-Table | Sort-Object -Property Name
+
+
+# $response = Invoke-WebRequest "https://mcr.microsoft.com/v2/businesscentral/sandbox/tags/list"
+# $response = Invoke-WebRequest "https://mcr.microsoft.com/v2/businesscentral/onprem/tags/list"
