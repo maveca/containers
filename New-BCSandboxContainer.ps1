@@ -17,15 +17,15 @@
 
 Param (
         [Parameter(Mandatory=$false)] [String]$containerName = "sandbox", 
-        [Parameter(Mandatory=$false)] [String]$tagName = "sandbox:base", 
+        [Parameter(Mandatory=$false)] [String]$tagName = "base", 
         [Parameter(Mandatory=$true)]  [String]$licenseFile,
         [Parameter(Mandatory=$false)] [PSCredential]$credential = $null,
         [Parameter(Mandatory=$false)] [Switch]$installTestToolkit,
         [Parameter(Mandatory=$false)] [Switch]$installALLanguage
 )
 
-.\Install\Install-BCContainer.ps1 -containerName $containerName `
-                        -imageName "mcr.microsoft.com/businesscentral/$tagName" `
+.\Install\Install-BCContainer.ps1 -containerNamlice $containerName `
+                        -imageName "mcr.microsoft.com/businesscentral/sandbox:$tagName" `
                         -licenseFile $licenseFile `
                         -credential $credential `
                         -installNAVContainerHelper `

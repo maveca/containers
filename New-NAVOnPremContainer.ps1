@@ -5,9 +5,12 @@
     Installes docker container with latest Sandbox image.
 .EXAMPLE
     PS C:\> .\New-BCSandboxContainer.ps1 -licenseFile .\license.flf
-    Creates docker with added licencse file.
+    Creates docker container with latest image for Sandbox and added licencse file.
+
+    PS C:\> .\New-BCSandboxContainer.ps1 -licenseFile .\license.flf
+    Download specific image and creates a docker container.
+
 .NOTES
-    Tests script if running in elevated mode.
     Updates NavContainerHelper module.
     Loads docker image.
     Installes Contianer.
@@ -18,11 +21,11 @@
 
 Param (
         [Parameter(Mandatory=$false)] [String]$containerName = "nav", 
-        [Parameter(Mandatory=$false)] [String]$imageName = "microsoft/dynamics-nav:latest", 
+        [Parameter(Mandatory=$false)] [String]$tagName = "latest", 
         [Parameter(Mandatory=$true)]  [String]$licenseFile
 )
 
 .\Install\Install-NAVContainer.ps1 -containerName $containerName `
-                        -imageName $imageName `
+                        -imageName 'microsoft/dynamics-nav:$tagName' `
                         -licenseFile $licenseFile `
                         -installNAVContainerHelper

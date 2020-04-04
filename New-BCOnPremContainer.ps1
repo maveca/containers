@@ -17,7 +17,7 @@
 
 Param (
         [Parameter(Mandatory=$false)] [String]$containerName = "onprem", 
-        [Parameter(Mandatory=$false)] [String]$tagName = "onprem:base", 
+        [Parameter(Mandatory=$false)] [String]$tagName = "base", 
         [Parameter(Mandatory=$true)]  [String]$licenseFile,
         [Parameter(Mandatory=$false)] [PSCredential]$credential = $null,
         [Parameter(Mandatory=$false)] [Switch]$installTestToolkit,
@@ -25,7 +25,7 @@ Param (
 )
 
 .\Install\Install-BCContainer.ps1 -containerName $containerName `
-                        -imageName "mcr.microsoft.com/businesscentral/$tagName" `
+                        -imageName "mcr.microsoft.com/businesscentral/onprem:$tagName" `
                         -licenseFile $licenseFile `
                         -credential $credential `
                         -installNAVContainerHelper `
