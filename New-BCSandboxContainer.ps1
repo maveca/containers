@@ -6,6 +6,10 @@
 .EXAMPLE
     PS C:\> .\New-BCSandboxContainer.ps1 -licenseFile .\license.flf
     Creates docker with added licencse file.
+
+    PS C:\> .\New-BCSandboxContainer.ps1 -tagName 2016-cu10-w1-ltsc2019 -licenseFile .\license.flf
+    Download specific image and creates a docker container.
+    To get list of images use .\Get-ImageList.ps1 script.
 .NOTES
     Updates NavContainerHelper module.
     Loads docker image.
