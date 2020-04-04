@@ -25,6 +25,9 @@ This powershell scripts will help you build containers for following products:
 4. Use scripts from the root directory.
    - `PS C:\> .\New-BCSandboxContainer.ps1 -licenseFile .\license.flf`
 
+5. Now and then use this script to get latest version of this scrips.
+   - `PS C:\> .\Get-LatestVersion.ps1`
+
 ## Remarks
 
 This scripts uses NAVContainerHelper module.
