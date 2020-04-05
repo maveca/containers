@@ -26,6 +26,6 @@ Param (
 )
 
 .\Install\Install-NAVContainer.ps1 -containerName $containerName `
-                        -imageName 'microsoft/dynamics-nav:$tagName' `
+                        -imageName "microsoft/dynamics-nav:$($tagName)" `
                         -licenseFile $licenseFile `
                         -installNAVContainerHelper
