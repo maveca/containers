@@ -1,0 +1,36 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Get Objects from Container",
+            "group": "build",
+            "type": "shell",
+            "command": "C:\\Aleksander\\Projects\\PowerShell\\NAVObjects\\Export-NavContainerObjects.ps1",
+            "args": [
+                "-containerName",
+                "${input:containerName}",
+                "-SubfolderByType"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false,
+                "revealProblems": "never"
+            },
+            "problemMatcher": [],
+        }
+    ],
+    "inputs": [
+        {
+            "id": "containerName",
+            "description": "Container Name",
+            "default": "nav",
+            "type": "promptString"
+        }
+    ]
+}

@@ -11,7 +11,8 @@ $destinationFolder = "C:\NAV Projects\$containerName"
 $exportFilter = ""
 $firstCommit = $true
 
-<#
+Remove-Item -Path $exportFolder -Force -Recurse -ErrorAction Ignore
+
 New-Item -Path $exportFolder `
     -ItemType Directory `
     -Force | Out-Null
@@ -20,7 +21,7 @@ New-Item -Path $destinationFolder `
     -ItemType Directory `
     -Force | Out-Null
     
-$directoryInfo = Get-ChildItem $destinationFolder | Measure-Object |Out-Null
+$directoryInfo = Get-ChildItem $destinationFolder | Measure-Object
 if ($directoryInfo.count -gt 0) # there are no files exported
 {
     $exportFilter = 'modified=Yes'
@@ -65,18 +66,19 @@ if ($SubfolderByType)
         -Destination $destinationFolder `
         -Force
 }
-#>
 
 # Commit to the git
 if ($firstCommit)
 {
     Write-Host "Initializing git with first commit."
-    Set-Locatation $exportFolder
+    $oldLocation = Get-Location
+    Set-Location $destinationFolder
     & git init
     & git add --all
     & git commit -m "First Commit." | Out-Null
-    Set-Locatation $PSScriptRoot
+    Set-Location $oldLocation.Path
 }
 
 $sw.Stop()
-Write-Host -ForegroundColor Green "Files exported in $($sw.Elapsed.Minutes) minutes and $($sw.Elapsed.Seconds) seconds."
+Write-Host "Finished in $($sw.Elapsed.Minutes) minutes and $($sw.Elapsed.Seconds) seconds."
+Write-Host -ForegroundColor Green "Export completed to folder: $destinationFolder" 

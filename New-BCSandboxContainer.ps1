@@ -28,7 +28,7 @@ Param (
         [Parameter(Mandatory=$false)] [Switch]$installALLanguage
 )
 
-.\Install\Install-BCContainer.ps1 -containerNamlice $containerName `
+.\Install\Install-BCContainer.ps1 -containerName $containerName `
                         -imageName "mcr.microsoft.com/businesscentral/sandbox:$tagName" `
                         -licenseFile $licenseFile `
                         -credential $credential `
