@@ -21,7 +21,7 @@
 
 Param (
         [Parameter(Mandatory=$false)] [String]$containerName = "sandbox", 
-        [Parameter(Mandatory=$false)] [String]$tagName = "latest", 
+        [Parameter(Mandatory=$false)] [String]$tagName = "base", 
         [Parameter(Mandatory=$true)]  [String]$licenseFile,
         [Parameter(Mandatory=$false)] [PSCredential]$credential = $null,
         [Parameter(Mandatory=$false)] [Switch]$installTestToolkit,
